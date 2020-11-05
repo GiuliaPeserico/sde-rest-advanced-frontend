@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "sde-rest-advanced-frontend"
+    }
+  },
+  "defaultProject": "sde-rest-advanced-frontend",
+  "cli": {
+    "analytics": false
+  }
 }
