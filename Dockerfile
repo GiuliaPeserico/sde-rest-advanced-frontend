@@ -1,8 +1,9 @@
 FROM node:12-slim
 WORKDIR /www
 ENV NODE_ENV development
-COPY package.json /www/package.json
+COPY package.json .
+COPY package-lock.json .
 RUN npm install
-COPY . /www
-CMD ["npm" , "start"]
+COPY . .
+CMD ["npm", "start"]
 EXPOSE 4200
