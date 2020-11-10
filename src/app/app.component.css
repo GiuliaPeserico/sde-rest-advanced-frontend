@@ -10,3 +10,7 @@
 .mt-6 {
   margin-top: 2.5rem;
 }
+.list-container {
+  height: 300px;
+  overflow-y: scroll;
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Region } from './types.model';
+import { CasesPerRegion, Region } from './types.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,26 +9,28 @@ import { Region } from './types.model';
 export class AppService {
   constructor(private http: HttpClient) {}
 
-  getRegionList(): Observable<Region[]> {
-    return of([
-      {
-        id: 0,
-        name: 'Veneto',
-        lat: 0,
-        long: 1,
-      },
-      {
-        id: 1,
-        name: 'Trentino Alto Adige',
-        lat: 1,
-        long: 2,
-      },
-      {
-        id: 2,
-        name: 'Lombardia',
-        lat: 1,
-        long: 2,
-      },
-    ]);
+  getRenkingRegion(n: number): Observable<CasesPerRegion[]> {
+    if (n) {
+      return this.http.get<CasesPerRegion[]>(
+        'http://localhost:8082/ranking?n=' + n
+      );
+    } else {
+      return this.http.get<CasesPerRegion[]>('http://localhost:8082/ranking');
+    }
+  }
+  getRenkingRegionByOrder(str: string): Observable<CasesPerRegion[]> {
+    return this.http.get<CasesPerRegion[]>(
+      'http://localhost:8082/ranking?ord=' + str
+    );
+  }
+
+  getChartPieUrl(): string {
+    return 'http://localhost:8082/charts/pie';
+  }
+  getChartLineUrl(): string {
+    return 'http://localhost:8082/charts/line';
+  }
+  getMapUrl(): string {
+    return 'http://localhost:8082/map';
   }
 }

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { AppService } from './app.service';
-import { Region } from './types.model';
+import { CasesPerRegion, Region } from './types.model';
 
 @Component({
   selector: 'app-root',
@@ -10,31 +10,47 @@ import { Region } from './types.model';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  // regions$: Observable<Region[]>;
-  regions: Region[];
+  ranking: CasesPerRegion[];
   topNumber: number;
 
-  constructor(private http: HttpClient, private service: AppService) {}
+  chartPieUrl: string;
+  chartLineUrl: string;
+  mapUrl: string;
+  subs: Subscription[] = [];
+
+  constructor(private service: AppService) {}
 
   ngOnInit(): void {
-    this.service.getRegionList().subscribe((regions) => {
-      this.regions = regions;
-    });
-    /*
-      here it is called the http request to the api using the http object injected in the constructor
-      example: this.http.get<>('/api/charts').toPromise().then(() => {});;
-    */
+    this.onGetRanking();
+
+    this.chartPieUrl = this.service.getChartPieUrl();
+    this.chartLineUrl = this.service.getChartLineUrl();
+    // this.mapUrl = this.service.getMapUrl();
   }
   ngOnDestroy(): void {
-    // unsubscribe
+    this.subs.forEach((element) => {
+      element.unsubscribe();
+    });
   }
   onAscOrder(): void {
-    console.log('Call to api asc');
+    this.subs.push(
+      this.service.getRenkingRegionByOrder('asc').subscribe((ranking) => {
+        this.ranking = ranking;
+      })
+    );
   }
   onDescOrder(): void {
-    console.log('Call to api desc');
+    this.subs.push(
+      this.service.getRenkingRegionByOrder('desc').subscribe((ranking) => {
+        this.ranking = ranking;
+      })
+    );
   }
-  onTopNumber(): void {
-    console.log(this.topNumber);
+  onGetRanking(): void {
+    this.subs.push(
+      this.service.getRenkingRegion(this.topNumber).subscribe((ranking) => {
+        this.ranking = ranking;
+      })
+    );
   }
 }

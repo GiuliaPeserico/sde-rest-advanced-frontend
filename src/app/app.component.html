@@ -9,45 +9,50 @@
         <span class="text-primary font-weight-bold">RANKING BY CASES</span>
       </div>
       <div class="card-body">
-        <div class="row">
-          <div class="col-9">
-            <ul class="list-group" *ngFor="let region of regions">
-              <li class="list-group-item">{{ region.name }}</li>
-            </ul>
-          </div>
-          <div class="col-3 text-right">
+        <label for="elements">How many elements do you want to show?</label>
+        <div class="input-group mb-3">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Number of element"
+            [(ngModel)]="topNumber"
+          />
+          <div class="input-group-append">
             <button
-              type="button"
               class="btn btn-primary"
-              (click)="onAscOrder()"
-            >
-              Ascending order
-            </button>
-            <button
               type="button"
-              class="btn btn-primary my-2"
-              (click)="onDescOrder()"
+              (click)="onGetRanking()"
             >
-              Descending order
+              Save
             </button>
-            <div class="input-group mb-3">
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Number of element"
-                [(ngModel)]="topNumber"
-              />
-              <div class="input-group-append">
-                <button
-                  class="btn btn-primary"
-                  type="button"
-                  (click)="onTopNumber()"
-                >
-                  Save
-                </button>
-              </div>
-            </div>
           </div>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="onAscOrder()">
+          Ascending order
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary mx-2"
+          (click)="onDescOrder()"
+        >
+          Descending order
+        </button>
+        <hr />
+        <div class="list-container mt-4">
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let rank of ranking; index as i"
+            >
+              <div class="d-flex justify-content-between">
+                <span>
+                  <span class="font-weight-bold">{{ i + 1 }} - </span
+                  >{{ rank.region.name }}</span
+                >
+                <span class="font-weight-bold">{{ rank.cases }}</span>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -60,12 +65,22 @@
       <div class="card-body">
         <div class="row">
           <div class="col-6">
-            <h6 class="text-center">Nessun immagine</h6>
-            <!-- <img src="../assets/chart1.png" class="card-img-top" alt="..." /> -->
+            <h6 class="text-center" *ngIf="!chartPieUrl">Nessun immagine</h6>
+            <img
+              [src]="chartPieUrl"
+              class="card-img-top"
+              alt="PieChartImage"
+              *ngIf="chartPieUrl"
+            />
           </div>
           <div class="col-6">
-            <h6 class="text-center">Nessun immagine</h6>
-            <!-- <img src="../assets/chart2.png" class="card-img-top" alt="..." /> -->
+            <h6 class="text-center" *ngIf="!chartLineUrl">Nessun immagine</h6>
+            <img
+              [src]="chartLineUrl"
+              class="card-img-top"
+              alt="LineChartImage"
+              *ngIf="chartLineUrl"
+            />
           </div>
         </div>
       </div>
@@ -79,8 +94,13 @@
             <span class="text-primary font-weight-bold">MAP</span>
           </div>
           <div class="card-body">
-            <h6 class="text-center">Nessun immagine</h6>
-            <!-- <img src="../assets/map.png" class="card-img-top" alt="Map image" /> -->
+            <h6 class="text-center" *ngIf="!mapUrl">Nessun immagine</h6>
+            <img
+              [src]="mapUrl"
+              class="card-img-top"
+              alt="Map image"
+              *ngIf="mapUrl"
+            />
           </div>
         </div>
       </div>
