@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { CasesPerRegion, Region } from './types.model';
+import { CasesPerRegion } from './types.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +24,11 @@ export class AppService {
     );
   }
 
-  getChartPieUrl(): string {
-    return 'http://localhost:8082/charts/pie';
+  getChartBarUrl(): string {
+    return 'http://localhost:8082/charts/bar';
   }
   getChartLineUrl(): string {
-    return 'http://localhost:8082/charts/line';
+    return 'http://localhost:8082/charts/line?id=5;d=1;m=11;y=2020';
   }
   getMapUrl(): string {
     return 'http://localhost:8082/map';

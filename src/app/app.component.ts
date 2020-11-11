@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AppService } from './app.service';
 import { CasesPerRegion, Region } from './types.model';
 
@@ -13,7 +12,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ranking: CasesPerRegion[];
   topNumber: number;
 
-  chartPieUrl: string;
+  chartBarUrl: string;
   chartLineUrl: string;
   mapUrl: string;
   subs: Subscription[] = [];
@@ -23,7 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.onGetRanking();
 
-    this.chartPieUrl = this.service.getChartPieUrl();
+    this.chartBarUrl = this.service.getChartBarUrl();
     this.chartLineUrl = this.service.getChartLineUrl();
     // this.mapUrl = this.service.getMapUrl();
   }
