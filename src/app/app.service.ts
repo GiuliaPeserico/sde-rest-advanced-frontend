@@ -29,11 +29,9 @@ export class AppService {
   }
 
   getChartBarUrl(d: number, m: number, y: number): string {
-    console.log(d + ' ' + m + ' ' + y + ' ');
     return 'http://localhost:8082/charts/bar?d=' + d + '&m=' + m + '&y=' + y;
   }
   getChartLineUrl(id: number, m: number, y: number): string {
-    console.log(m + ' ' + y + ' ');
     return 'http://localhost:8082/charts/line?id=' + id + '&m=' + m + '&y=' + y;
   }
   getMapUrl(d: number, m: number, y: number): string {

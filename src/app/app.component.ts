@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { AppService } from './app.service';
 import { CasesPerRegion, Region } from './types.model';
@@ -13,9 +14,9 @@ export class AppComponent implements OnInit, OnDestroy {
   regions: Region[];
   topNumber: number;
   selectedRegion = 1;
-  selectedLineChartDate = '2020-11-01';
-  selectedBarChartDate = '2020-11-01';
-  selectedMapDate = '2020-11-01';
+  selectedLineChartDate = moment().format('YYYY-MM-DD');
+  selectedBarChartDate = moment().format('YYYY-MM-DD');
+  selectedMapDate = moment().format('YYYY-MM-DD');
 
   chartBarUrl: string;
   chartLineUrl: string;
