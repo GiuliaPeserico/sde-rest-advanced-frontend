@@ -27,12 +27,16 @@
             </button>
           </div>
         </div>
-        <button type="button" class="btn btn-primary" (click)="onAscOrder()">
+        <button
+          type="button"
+          class="btn btn-primary mr-2 mt-2"
+          (click)="onAscOrder()"
+        >
           Ascending order
         </button>
         <button
           type="button"
-          class="btn btn-primary mx-2"
+          class="btn btn-primary mt-2"
           (click)="onDescOrder()"
         >
           Descending order
@@ -63,16 +67,51 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-6">
+          <div class="col-sm-12 col-md-6 mb-3">
+            <div class="input-group mb-3">
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="selectedBarChartDate"
+                (ngModelChange)="onSelectBarChartDate()"
+                value="2020-11-11"
+                min="2020-10-01"
+                max="2020-12-01"
+              />
+            </div>
+            <hr />
             <h6 class="text-center" *ngIf="!chartBarUrl">Nessun immagine</h6>
             <img
               [src]="chartBarUrl"
               class="card-img-top"
-              alt="PieChartImage"
+              alt="BarChartImage"
               *ngIf="chartBarUrl"
             />
           </div>
-          <div class="col-6">
+          <div class="col-sm-12 col-md-6 mb-3">
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                [(ngModel)]="selectedRegion"
+                (ngModelChange)="onSelectRegion()"
+              >
+                <option *ngFor="let region of regions" [ngValue]="region.id">
+                  {{ region.name }}
+                </option>
+              </select>
+            </div>
+            <div class="input-group mb-3">
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="selectedLineChartDate"
+                (ngModelChange)="onSelectLineChartDate()"
+                value="2020-11-11"
+                min="2020-10-01"
+                max="2020-12-01"
+              />
+            </div>
+            <hr />
             <h6 class="text-center" *ngIf="!chartLineUrl">Nessun immagine</h6>
             <img
               [src]="chartLineUrl"
@@ -93,6 +132,18 @@
             <span class="text-primary font-weight-bold">MAP</span>
           </div>
           <div class="card-body">
+            <div class="input-group mb-3">
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="selectedMapDate"
+                (ngModelChange)="onSelectMapDate()"
+                value="2020-11-11"
+                min="2020-10-01"
+                max="2020-12-01"
+              />
+            </div>
+            <hr />
             <h6 class="text-center" *ngIf="!mapUrl">Nessun immagine</h6>
             <img
               [src]="mapUrl"

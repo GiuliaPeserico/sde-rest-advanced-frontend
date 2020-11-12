@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { CasesPerRegion } from './types.model';
+import { CasesPerRegion, Region } from './types.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
   constructor(private http: HttpClient) {}
+
+  getRegions(): Observable<Region[]> {
+    return this.http.get<Region[]>('http://localhost:8081/regions');
+  }
 
   getRenkingRegion(n: number): Observable<CasesPerRegion[]> {
     if (n) {
@@ -24,13 +28,15 @@ export class AppService {
     );
   }
 
-  getChartBarUrl(): string {
-    return 'http://localhost:8082/charts/bar';
+  getChartBarUrl(d: number, m: number, y: number): string {
+    console.log(d + ' ' + m + ' ' + y + ' ');
+    return 'http://localhost:8082/charts/bar?d=' + d + '&m=' + m + '&y=' + y;
   }
-  getChartLineUrl(): string {
-    return 'http://localhost:8082/charts/line?id=5;d=1;m=11;y=2020';
+  getChartLineUrl(id: number, m: number, y: number): string {
+    console.log(m + ' ' + y + ' ');
+    return 'http://localhost:8082/charts/line?id=' + id + '&m=' + m + '&y=' + y;
   }
-  getMapUrl(): string {
-    return 'http://localhost:8082/map';
+  getMapUrl(d: number, m: number, y: number): string {
+    return 'http://localhost:8082/map?d=' + d + '&m=' + m + '&y=' + y;
   }
 }
